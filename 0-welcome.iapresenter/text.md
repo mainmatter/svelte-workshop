@@ -57,11 +57,9 @@ size: contain
 
 /assets/Finished-app.png
 
-We will be building ourselves a music player app using Sveltekit and the Soundcloud API.
-
-Throughout the workshop we will intersperse theoretical knowledge with opportunities to get stuck in so you will gain some hands on experience with Svelte and Sveltekit.
-
-(We will also be using Tailwind CSS to speed up the development process, but the styling is left up to you so it's your decision whether you want to use Tailwind or not)
+- building a music player app using Sveltekit and the Soundcloud API.
+- mix theoretical knowledge with hands on experience
+- (we will use tailwind CSS but ultimately styles are up to you)
 
 
 ---
