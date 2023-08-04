@@ -16,9 +16,9 @@ npm create svelte@latest svelte-music-player
 ```
 ```bash
 ◆  Add type checking with TypeScript?
-│  ○ Yes, using JavaScript with JSDoc comments
+│  ● Yes, using JavaScript with JSDoc comments
 │  ○ Yes, using TypeScript syntax
-│  ● No
+│  ○ No
 ```
 ```bash
 ◆  Select additional options (use arrow keys/space bar)
@@ -37,13 +37,14 @@ Next steps:
 
 - using JS over TS as this is an intro to Sveltekit rather than TS
 - we will still be using JSDoc for some autocompletion
+- The library project allows you to quickly build an npm package for svelte/sveltekit
 
 ---
 
 ### Command cheatsheet
 	Run the development server
 	```bash
-	7pm run dev
+	npm run dev
 	```
 	Run the Playwright tests
 	```bash
@@ -57,6 +58,7 @@ Next steps:
 ---
 
 ## Getting started with Sveltekit
+
 
 ---
 ### Structure of a blank Sveltekit project
@@ -87,29 +89,68 @@ Next steps:
 
 Skipping "src" for now
 
-"static" - assets that won't change, like the logo or favicon,
-- also a good place to store your global stylesheet
+"static" - assets that needs to be served and would be wasteful to make an entire endpoint just for them like the favicon or things like "robots.txt"
 
 "svelte.config.js" - where we can configure our app in different ways, 
 - aliases to make imports easier,
 - adapters - will take a production build and tune it for our target environment.
+- node
+- vercel
+- netlify
+- static
 
 "tests" - created by Playwright
 - where we store all of our Playwright tests
 - this will be expanding as we go through this workshop and begin to add more functionality.
 
 back to "src" - the majority of our app code will go,
-- we can split it into components, stores, routes and any other folders or files we might find useful later on.
+- we can split it into components, stores, routes and any other folders or files we might find useful later on. The only required files are app.html and routes
 
 Going through the "src" folder:
 "app.d.ts" - define our types if we wanted,
 - just by the fact that our JS only app has a types file, you can tell that Svelte loves types.
+---
+### app.html
+```html
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
+		<meta name="viewport" content="width=device-width" />
+		%sveltekit.head%
+	</head>
 
+	<body data-sveltekit-preload-data="hover">
+		<div style="display: contents">%sveltekit.body%</div>
+	</body>
+</html>
+```
 "app.html" - the entry point for our whole app,
 - looks like a fairly standard HTML page. There are just a few things that stick out, all of which allow sveltekit to take over during the compile step and add the correct paths:
 "%sveltekit.assets%" - the assets are stored, in our case it defaults to the "static" folder.
 "%sveltekit.head%" - adds a portal so that we can add "head" information from anywhere in the app.
 "%sveltekit.body%" - where the rest of our app will be output.
+"%sveltekit.env.[NAME]%" - get's replaced with the environment variable
+---
+### Structure of a blank Sveltekit project
+```bash
+├── jsconfig.json
+├── package.json
+├── playwright.config.js
+├── src
+│   ├── app.d.ts
+│   ├── app.html
+│   ├── index.test.js
+│   └── routes
+│       └── +page.svelte
+├── static
+│   └── favicon.png
+├── svelte.config.js
+├── tests
+│   └── test.js
+└── vite.config.js
+```
 
 "index.test.js" - created by Vitest
 - is one option for how to structure your tests,
@@ -124,8 +165,6 @@ Going through the "src" folder:
 
 "+page.svelte" file directly in the "routes" folder - this is the index page,
 - can access by navigating to the root URL of our dev server.
-
-
 ---
 // this needs to change - we do this in Routing now
 ## Adding a layout
@@ -147,10 +186,6 @@ For now, just import global stylesheet,
 
 ---
 
-- app is now displaying nothing,
-- <slot/> element allows svelte to know that this is where we want all child elements to be rendered.
-
-- after adding <slot/>, app should now work 
 
 	routes/+layout.svelte
 ```
@@ -158,8 +193,22 @@ For now, just import global stylesheet,
 	import '../app.css';
 </script>
 
+```
+- app is now displaying nothing,
+- <slot/> element allows svelte to know that this is where we want all child elements to be rendered.
+---
+
+
+	routes/+layout.svelte
+```
+<script>
+	imp
+ort '../app.css';
+</script>
+
 <slot />
 ```
+- Now the app should work as expected
 ---
 // Also in Routing now
 ## Loading data
