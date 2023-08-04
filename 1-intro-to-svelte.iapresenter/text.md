@@ -7,7 +7,7 @@
 
 - most JS frameworks have an abstraction layer that needs to be shipped with the production bundle, making it larger
 - svelte manipulates the code in the compiler, 
-- compiled to vanilla JS
+- compiled to (performant) vanilla JS
 - same great DX
 - smaller bundle sizes
 
@@ -29,7 +29,6 @@
 - the core team has been expanding along with the community of users
 - 2019, Svelte made it onto the State of JavaScript leaderboard with 88% retention
 - it has slightly increased to just under 90% in 2022
-- (Retention = people that would use again / ( those that would use again + those that would not use again))
 
 
 ---
@@ -54,7 +53,7 @@
 - 2020, the decision was made to move away from Sapper, 
 - rebranding as Sveltekit and giving it the final push towards its v1.0 release.
 
-- late 2022, Sveltekit 1.0 was released and immediately got put into work in production apps.
+- late 2022, Sveltekit 1.0 was released (already used before 1.0, was just a cuts for "no more breaking changes").
 
 
 ---
@@ -66,3 +65,4 @@
 	4. The New York Times
 	5. Philips
 	6. Avast
+	7. Apple
