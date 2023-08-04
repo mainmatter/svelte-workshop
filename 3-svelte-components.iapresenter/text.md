@@ -29,11 +29,11 @@
 
 ---
 ## The `<script>` tag
-- <script> tag contains the logic for the component,
+- `<script>` tag contains the logic for the component,
 - import from other files,
 - carry out logic,
 - store component state.
-- it's very similar to a standard <script> tag, with 4 major differences:
+- it's very similar to a standard `<script>` tag, with 4 major differences:
 
 
 ---
@@ -86,15 +86,15 @@
 	}
 
 	function updateArray() {
-		array.push('new thing') // won't work
-		array = [...array, 'new thing') // will work
+		array.push('new thing') // this alone won't work
+		array = array; // this will make it work
 	}
 </script>
 ```
 
 - svelte will update the DOM if an assignment is changed
 - strings, booleans and object attributes can all be reassigned to update the DOM
-- array manipulation (e.g. splice or push) will not cause the DOM to update
+- array manipulation (e.g. splice or push) will not cause the DOM to update because svelte needs a `=` or `++` or `--` to work (it statically analyse the code)
 
 
 ---
@@ -102,14 +102,30 @@
 ```
 <script>
 	export let title;
-	export let person;
+	
+	let blogTitle;
+	$: blogTitle = `Blog: ${title}` 
+</script>
+```
+- "$" means that svelte will observe the values for any changes
+- simple tasks like extending the name of this blog,
+
+---
+### $: marks a statement as reactive
+```
+<script>
+	export let title;
 
 	$: blogTitle = `Blog: ${title}` 
+</script>
+```
+- svelte will automatically add the let variable if it sees that the only thing in the reactive statement is an assignment
 
-	$: {
-		console.log(`multiple statements can be combined`);
-		console.log(`the current title is ${title}`);
-	}
+---
+### $: marks a statement as reactive
+```
+<script>
+	export let person;
 
 	let reversed = ''
 
@@ -122,19 +138,9 @@
 		reversed = reversedName
 	}
 
-	$: ({ name } = person);
 </script>
 ```
-- "$" means that svelte will observe the values for any changes
-- simple tasks like extending the name of this blog,
 - with curly braces you can add multiple statements or use it like a regular code block
-- you can destructure a prop with parenthesises
-
-
----
-### Prefix stores with $ to access their values
-
-We have a whole section about stores later on so we will explore this topic in depth later on
 
 ---
 ## Template markup
@@ -161,10 +167,10 @@ We have a whole section about stores later on so we will explore this topic in d
 {JSON.stringify(thing, null, 2)}
 ```
 
-- very similar to regular HTML with a few differences
-- `on` method for native HTML element interactions
-- `if` and `each` elements
-- pure JS in the template - great for debugging
+- regular HTML with a few additions
+- `on:*` attributes for native HTML element interactions
+- `if` and `each` blocks
+- JS expressions - great for debugging
 
 ---
 ## Component styles
@@ -177,9 +183,9 @@ We have a whole section about stores later on so we will explore this topic in d
 ## Slots
 ```html
 <!-- ImageWrapper.svelte -->
-<div>
+<figure>
 	<slot>No slot was provided</slot>
-</div>
+</figure>
 ```
 ```html
 <!-- App.svelte -->
@@ -188,8 +194,8 @@ We have a whole section about stores later on so we will explore this topic in d
 </ImageWrapper>
 ```
 
- - same as the +layout.svelte page, we can add <slot> to a component
  - anything inside the wrapping <slot> element will be the fallback in case no slot is provided
+ - this is the insertion point for the children of the component
 ---
 ## Named slots
 ```html
@@ -197,6 +203,7 @@ We have a whole section about stores later on so we will explore this topic in d
 <div>
   <slot name="title">No title was provided</slot>
   <slot name="content" />
+  <slot name="actions" />
 </div>
 ```
 ```html
@@ -204,6 +211,10 @@ We have a whole section about stores later on so we will explore this topic in d
 <Blog>
 	<h1 slot="title">The title goes here</h1>
 	<p slot="content">My amazing blog post.</p>
+	<svelte:fragment slot="actions">
+		<!--These will be inserted without a wrapping element-->
+		<a href="#">A</a> <a href="#">B</a>
+	</svelte:fragment>
 </Blog>
 ```
 - if you need multiple slots on the page, you can use named slots
