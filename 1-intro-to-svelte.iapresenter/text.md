@@ -44,8 +44,11 @@
 - code-splitting,
 - an opinionated project structure.
 
-
 ---
+<iframe width="1560" height="815" src="https://www.youtube.com/embed/qSfdtmcZ4d0?start=85&end=92" title="YouTube video player" frameborder="0" allow="autoplay" allowfullscreen></iframe>
+- short clip of Sapper 1.0 being announced
+---
+
 
 ## Sveltekit
 	The new kid in town
