@@ -1,6 +1,95 @@
 # Sveltekit Routing
 
 ---
+## Routing Basics 
+
+---
+## Adding a layout
+	+layout.svelte
+
+- good place to import global stylesheets
+- all other pages will inherit from this layout.
+
+- +layout.svelte is the perfect place to house shared logic across all pages.
+- good candidates for usage in the layout file would be things like a navbar or footer.
+
+- breaking out of layouts is possible but we won't be exploring it
+// https://learn.svelte.dev/tutorial/breaking-out-of-layouts
+
+---
+	routes/+layout.svelte
+```
+<script>
+	import '../app.css';
+</script>
+
+```
+
+For now, just import global stylesheet,
+- create +layout.svelte within "routes", giving it a script tag and importing our global styles here.
+
+// wait for them to do it and see the app is broken
+
+- app is now displaying nothing,
+// see if anyone can tell us why it's broken
+---
+
+
+	routes/+layout.svelte
+```
+<script>
+	imp
+ort '../app.css';
+</script>
+
+<slot />
+```
+- <slot/> element allows svelte to know that this is where we want all child elements to be rendered.
+- Now the app should work as expected
+---
+## Loading data
+	+page.server.js
+
+- we'll dig into data loading and distribution soon
+- for now, let's simply get some data on screen.
+
+---
+	routes/+page.server.js
+```
+export function load() {
+	return {
+		name: 'Billy Bloggs'
+	};
+}
+```
+
+- create a +page.server.js file alongside our +page.svelte and +layout.svelte files.
+- export a load function that will return our data object.
+
+---
+## Displaying our loaded data
+	+page.svelte
+
+---
+	routes/+page.svelte
+```
+<script>
+	export let data;
+</script>
+
+<h1>Welcome to The Svelte Music Player</h1>
+
+<p>
+	{data.name}, it's great to see you again!
+</p>
+```
+- add the data object as an export in our +page.svelte file. 
+- always has the same call signature - "export let data"
+
+- as seen in Svelte components, `export` is for data coming from outside the component. 
+---
+## Updating our route structure
+---
 ## Folder structure
 ```bash
 ├── (app)
@@ -35,7 +124,7 @@
 // get stuck in and create this folder structure then play around with the URL to see that each page is working
 
 ---
-!!! this needs changing, we know give an example of how you can still access the parent data here by loading the songs in (app)/+layout.server.js
+!!! this needs changing, we now give an example of how you can still access the parent data here by loading the songs in (app)/+layout.server.js
 
 ## Loading data
 	src/routes/(app)/library/songs/+page.server.js

@@ -166,92 +166,22 @@ Going through the "src" folder:
 "+page.svelte" file directly in the "routes" folder - this is the index page,
 - can access by navigating to the root URL of our dev server.
 ---
-// this needs to change - we do this in Routing now
-## Adding a layout
-	+layout.svelte
-
-- good place to import global stylesheets
-- all other pages will inherit from this layout.
-
-- +layout.svelte is the perfect place to house shared logic across all pages.
-- good candidates for usage in the layout file would be things like a navbar or footer.
-
-- breaking out of layouts is possible but we won't be exploring it
-// https://learn.svelte.dev/tutorial/breaking-out-of-layouts
-
-For now, just import global stylesheet,
-- create +layout.svelte within "routes", giving it a script tag and importing our global styles here.
-
-// wait for them to do it and see the app is broken
+## Displaying data
+	+page.svelte
 
 ---
-
-
-	routes/+layout.svelte
-```
-<script>
-	import '../app.css';
-</script>
-
-```
-- app is now displaying nothing,
-- <slot/> element allows svelte to know that this is where we want all child elements to be rendered.
----
-
-
-	routes/+layout.svelte
-```
-<script>
-	imp
-ort '../app.css';
-</script>
-
-<slot />
-```
-- Now the app should work as expected
----
-// Also in Routing now
-## Loading data
-	+page.server.js
-
-- we'll dig into data loading and distribution later
-- for now, let's simply get some data on screen.
-
-- create a +page.server.js file alongside our +page.svelte and +layout.svelte files.
-
-- export a load function that will return our data object.
-
-
----
-	routes/+page.server.js
-```
-export function load() {
-	return {
-		name: 'Billy Bloggs'
-	};
-}
-```
-
-
----
-## Displaying our loaded data
-
-- add the data object as an export in our +page.svelte file. 
-- always has the same call signature - "export let data"
-
-- the "export" keyword here is handled specially by Sveltekit for these situations where there is data coming from outside the component. 
-
----
-// change this to not have the export - hardcode the data for now
 	routes/+page.svelte
 ```
 <script>
-	export let data;
+	const name = 'Billy Bloggs';
 </script>
 
 <h1>Welcome to The Svelte Music Player</h1>
 
 <p>
-	{data.name}, it's great to see you again!
+	{name}, it's great to see you again!
 </p>
 ```
+
+- add the `name` constant in our +page.svelte file. 
+- use curly braces to access it in the markup
