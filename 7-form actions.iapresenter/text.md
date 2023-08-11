@@ -63,10 +63,14 @@ sveltekit provides us with useful helper functions for common responses like red
 
 anything returned from the action will populate the `page.form` property
 
-named action - you can have multiple actions on a single server file
+// ADDON SLIDE
+// you can have named form actions by exporting named actions instead of using the `default` action
 
 ---
 ## Hooks
+
+---
+	src/hooks.server.js
 ```
 export async function handle({ event, resolve }) {
 	const user = event.cookies.get('user');
@@ -80,19 +84,19 @@ export async function handle({ event, resolve }) {
 
 hooks runs on every request - a lot like a middleware (express) that can mutate the object that is passed to it
 
+server hooks:
+handle - runs every time sveltekit receives a request and allows you to manipulate the data before and after the `load` function is executed
+handleFetch - allows you to modify (or replace) a fetch request that happens inside a load or action function that runs on the server
+
+Shared hooks (both client and server):
+handleError - If an unexpected error is thrown during loading or rendering
+
 here we are setting the `user` if there is one
 
 `event` is a RequestEvent that also has properties that are available throughout the app in the `load` function. `locals` is the preferred place to store data to be passed to the FE with each request.
-
-handle can also be broken down into `handleFetch` and `handleError` which will mutate the `fetch` and `error` response
-
-you can manipulate data before and after the `load` function is executed
 
 ---
 
 ## Adding form actions to our project
 
-// `$lib/server` is a reserved folder that acts as an API layer. It can only be accessed from `server` files. It contains the code that is only executed on the server
-
-// ADDON SLIDE
-// you can have named form actions by exporting named actions instead of using the `default` action
+`$lib/server` is a reserved folder that acts as an API layer. It can only be accessed from `server` files. It contains the code that is only executed on the server
