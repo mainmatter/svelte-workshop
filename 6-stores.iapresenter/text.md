@@ -2,13 +2,11 @@
 
 https://svelte.dev/docs/svelte-store
 
-Svelte's way of handling long-lived state in memory
-
 similar to the `$` reactivity model in a component, `stores` give us the same reactivity model that isn't bound to a single component
 
 stores live outside of our components and can be accessed anywhere - don't need to worry about the component tree
 
-they use pure functions to maintain the state of the store
+they maintain their state in memory
 
 they're available in template through `$` - this sets up the subscription and removes it when the component is destroyed - don't need to worry about data leaks
 
@@ -17,7 +15,7 @@ writable
 readable
 derived
 
-can also customise them or create your own as long as they follow the store interface - `subscribe`, `unsubscribe` & `set`
+can also customise them or create your own as long as they follow the store interface - at least a `subscribe` function that returns an `unsubscribe`, optionally a `set` and `update`...for full compatibility with RxJS observables you can also have an object with the `unsubscribe` field
 
 
 ---
@@ -25,18 +23,27 @@ can also customise them or create your own as long as they follow the store inte
 ```
 import { writable } from 'svelte/store';
  
-const count = writable(0);
+const count = writable(0, (set, update)=>{
+	console.log("first subscriber");
+	return ()=>{
+		console.log("no more subscribers");
+	}
+});
 
-count.subscribe((value) => {
+const unsubscribe = count.subscribe((value) => {
   console.log(value);
-}); // logs '0'
+}); // logs 'first subscriber' and '0'
  
 count.set(1); // logs '1'
  
 count.update((n) => n + 1); // logs '2'
+
+unsubscribe(); // logs 'no more subscribers'
 ```
 
 set them with an initial value
+
+Optionally pass a StartStopNotifier
 
 `subscribe` to the value changes
 
@@ -88,7 +95,21 @@ export const elapsed = derived(time, ($time) => Math.round(($time - start) / 100
 ```
 
 derived stores receive another store and can emit values based on that stores value without manipulating the original store
+---
+## How to access stores in a component
+```
+<script>
+import { count } from "previous-example";
 
+console.log("loggin count", $count);
+
+$: console.log("loggin count reactively", $count);
+</script>
+
+<button on:click={()=>{
+	$count++;
+}}>{$count}</button>
+```
 ---
 ## Adding stores to our project
 
