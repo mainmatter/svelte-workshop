@@ -50,13 +50,13 @@
 ---
 
 
-## Sveltekit
+## SvelteKit
 	The new kid in town
 
 - 2020, the decision was made to move away from Sapper, 
-- rebranding as Sveltekit and giving it the final push towards its v1.0 release.
+- rebranding as SvelteKit and giving it the final push towards its v1.0 release.
 
-- late 2022, Sveltekit 1.0 was released (already used before 1.0, was just a cuts for "no more breaking changes").
+- late 2022, SvelteKit 1.0 was released (already used before 1.0, was just a cuts for "no more breaking changes").
 
 
 ---

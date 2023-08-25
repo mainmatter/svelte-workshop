@@ -1,4 +1,4 @@
-# Sveltekit
+# SvelteKit
 
 /assets/Mainmatter-team.png
 background: true
@@ -23,7 +23,7 @@ background: true
 
 ---
 
-## Getting started with Sveltekit 
+## Getting started with SvelteKit 
 ### in 2 days
 
 
@@ -40,12 +40,12 @@ size: contain
 ---
 
 	1. Introduction to Svelte
-	2. Sveltekit basics
+	2. SvelteKit basics
 	3. Svelte components
-	4. Routing in Sveltekit
-	5. Testing in Sveltekit
+	4. Routing
+	5. Testing
 	6. Svelte stores
-	7. Form actions in Sveltekit
+	7. SvelteKit as a server
 
 
 ---
@@ -57,7 +57,7 @@ size: contain
 
 /assets/Finished-app.png
 
-- building a music player app using Sveltekit and the Soundcloud API.
+- building a music player app using SvelteKit and the Soundcloud API.
 - mix theoretical knowledge with hands on experience
 - (we will use tailwind CSS but ultimately styles are up to you)
 

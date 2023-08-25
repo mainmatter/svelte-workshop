@@ -1,4 +1,4 @@
-# Sveltekit Routing
+# SvelteKit Routing
 
 ---
 
@@ -353,7 +353,7 @@ Currently, '/library' will lead us to an unknown page,
 We can either make sure that all of our routes are hard-coded to `/library/songs` but then the app would still break if someone were to change the URL.
 For safety, we'll add a redirect that will take us from `/library` to `/library/songs`
 
-Within the `load` function, we throw a `redirect` (from Sveltekit) with the redirect code (the specific code is not so important) and the route we want to redirect to.
+Within the `load` function, we throw a `redirect` (from SvelteKit) with the redirect code (the specific code is not so important) and the route we want to redirect to.
 Every time a user hits `/library` they will be redirected
 
 ---

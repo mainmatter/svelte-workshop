@@ -1,4 +1,4 @@
-# Sveltekit Basics
+# SvelteKit Basics
 
 
 ---
@@ -35,7 +35,7 @@ Next steps:
   4: npm run dev -- --open
 ```
 
-- using JS over TS as this is an intro to Sveltekit rather than TS
+- using JS over TS as this is an intro to SvelteKit rather than TS
 - we will still be using JSDoc for some autocompletion
 - The library project allows you to quickly build an npm package for svelte/sveltekit
 
@@ -57,11 +57,11 @@ Next steps:
 
 ---
 
-## Getting started with Sveltekit
+## Getting started with SvelteKit
 
 
 ---
-### Structure of a blank Sveltekit project
+### Structure of a blank SvelteKit project
 ```bash
 ├── jsconfig.json
 ├── package.json
@@ -133,7 +133,7 @@ Going through the "src" folder:
 "%sveltekit.body%" - where the rest of our app will be output.
 "%sveltekit.env.[NAME]%" - get's replaced with the environment variable
 ---
-### Structure of a blank Sveltekit project
+### Structure of a blank SvelteKit project
 ```bash
 ├── jsconfig.json
 ├── package.json
@@ -158,7 +158,7 @@ Going through the "src" folder:
 - some find it harder to distinguish between the app code and the test code in this situation and so prefer to put it in a separate folder.
 - there is no right or wrong way to do this so it's just down to preference.
 
-"src/routes" - one of the strengths of Sveltekit,
+"src/routes" - one of the strengths of SvelteKit,
 - the folder routing structure means that we can group routes together and house logic right next to where it is used
 - every new "+page.svelte" file will reflect a new route with the name of its folder 
 - (there are some exceptions to this but we will explore them later).

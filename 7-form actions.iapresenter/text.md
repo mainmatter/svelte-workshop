@@ -1,5 +1,5 @@
 # SvelteKit as a server
-Sveltekit is just a machine that takes a Request and answer with a response
+SvelteKit is just a machine that takes a Request and answer with a response
 ---
 ## Form actions
 
