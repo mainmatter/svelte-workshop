@@ -24,8 +24,17 @@ Playwright - acceptance testing
 
 Acceptance testing:
 - closer to real life testing - does it work correctly when plugged into the page
-- start on '/' go to '/library', check the title and check the table has rendered
+- run codegen `npx playwright codegen localhost:5173` 
 
+---
+## Adding tests to our app
+
+PRESENTER HELP:
+Playwright
+- show how codegen works then get them to write a test: "start on '/' go to '/library', check the title and check the table has rendered"
+- mention `page().toHaveUrl()`
+Vitest:
 Testing the song table
-- we've provided the component, you need to test it
-- add testId to help select elements
+- add `data-testid` to `th` and `tr` to help select elements
+- go through first example then get them to do second test on their own
+
