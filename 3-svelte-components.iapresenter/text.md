@@ -1,11 +1,4 @@
 # Svelte components
-
----
-## Creating a new component
-
-- simply right-click and add a new file with the `.svelte` extension
-// this is useful as it can give people an area to experiment
-
 ---
 
 ## The structure of Svelte a component
@@ -60,6 +53,7 @@
 ```
 
 - "export" keyword marks a variable declaration as a property of that component
+- it is the exact opposite of "export" in ESM - here it means the property have been passed in from outside
 
 - you can set a default value
 - make it readonly by using `const`
@@ -68,6 +62,15 @@
 
 ---
 ### Assignments are 'reactive'
+
+---
+### But first: What is reactivity?
+/assets/Reactivity.png
+size: contain
+- screenshot taken from Rich Harris' talk on reactivity
+- we want a way to be able to mix tracked variables that will update when a value they depend on changes
+- in this example, if we update "quantity" or "price" then the "total"s will update
+---
 ```html
 <script>
 	let count = 0;
@@ -132,16 +135,18 @@
 	$: {
 		// this is not optimal code, but works for this demonstration
 		if(person.isReversed){
-		const characters = name.split('')
-		const reversedCharacters = characters.reverse()
-		const reversedName = reversedCharacters.join('')
-		reversed = reversedName
+			const characters = name.split('')
+			const reversedCharacters = characters.reverse()
+			const reversedName = reversedCharacters.join('')
+			reversed = reversedName
+		}
 	}
 
 </script>
 ```
 - with curly braces you can add multiple statements or use it like a regular code block
 
+- // in case it comes up - reassigning a variable will work, but it would get overwritten if the watched variable changes
 ---
 ## Template markup
 ```html
@@ -163,13 +168,13 @@
 	{/each}
 </ul>
 
-<!-- My favourite debugging tool -->
+<!-- Dan's favourite debugging tool -->
 {JSON.stringify(thing, null, 2)}
 ```
 
 - regular HTML with a few additions
 - `on:*` attributes for native HTML element interactions
-- `if` and `each` blocks
+- `if` and `each` blocks (`each` loops can also be keyed as with most modern frameworks)
 - JS expressions - great for debugging
 
 ---
@@ -220,19 +225,49 @@
 - if you need multiple slots on the page, you can use named slots
 - "slot" can go onto an HTML element
 - same as normal slot, fallback is provided by anything inside the <slot> tags
+
+---
+- data can be exposed by a child component to be used within its block
+### Passing data between components
+	Parent.svelte
+```
+<script>
+	import Child from 'child.svelte'
+</script>
+
+<Child let:result>
+	{result}
+</Child>
+```
+	Child.svelte
+```
+<script>
+	let result = 'Hi mum'
+</script>
+
+<slot {result}/>
+```
+- `result` is a shorthand that means `result={result}`
 ---
 ## Putting it into practice
 
+---
+## Creating a new component
+- // we don't need to for this section
+- simply right-click and add a new file with the `.svelte` extension
 
 ---
-### Our aims
+### 🧑‍💻 Boxes component
 	- [ ] Create a new "Boxes.svelte" component
-		- [ ] it can receive an array of colours (but also has a default)
+		- [ ] it can receive an array of colors (but also has a default)
 		- [ ] it can receive 3 slots called "box1", "box2" & "box3"
-		- [ ] clicking the box will change its colour to a random colour in our "colours" array
-	- [ ] Create a "PrimaryNav.svelte" component
-		- [ ] it simply has a link to the index page
-		- [ ] it is shown on all pages (+layout.svelte)
+		- [ ] clicking the box will change its color to a random colour in our "colors" array
+- put `Boxes` next to where its being consumed
 
-// from here go into the code editor to start working through it - be sure to put PrimaryNav into `lib` folder and `Boxes` next to where its being consumed
+---
+### 🧑‍💻 PrimaryNav component
+	- [ ] Create a "PrimaryNav.svelte" component
+		- [ ] it has a link to the index page
+- put PrimaryNav into `lib` folder
+
 https://svelte.dev/docs/svelte-components
