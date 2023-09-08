@@ -16,7 +16,7 @@ routes
 
 ---
 
-## Folder structure
+### 🧑‍💻 Adding the about page
 ```bash
 routes
 ├── about ✨
@@ -25,7 +25,8 @@ routes
 ```
 
 - this adds a /about page
-- how to load data?
+- you can add anything you like here - "About" header?
+- Next: how to load data?
 
 ---
 
@@ -36,7 +37,21 @@ routes
 - for now, let's simply get some data on screen.
 
 ---
-	routes/+page.server.js
+
+### 🧑‍💻 Adding a page server file
+```bash
+routes
+├── about
+│   └── +page.svelte
+├── +page.server.js ✨
+└── +page.svelte
+```
+
+- load the data in +page.server.js
+- Next: common layout around the pages
+
+---
+	🧑‍💻 src/routes/+page.server.js
 ```
 export function load() {
 	return {
@@ -49,7 +64,7 @@ export function load() {
 - export a load function that will return our data object.
 - the return value must always be an object AND JSON serialisable
 - `.server` will only get executed on the server
-
+- Next: if we want something that can load both on the server AND client-side...
 ---
 
 ## The Universal load function
@@ -58,12 +73,13 @@ export function load() {
 - runs on the server AND on the client
 - you can receive data from the +page.server.js
 - you can return non serialisable data (like a svelte component or a function)
-- all the serialisable data gets inlined in the html so that it will not be fetched twice
+- all the serialisable data that uses `fetch` gets inlined in the html so that it will not be fetched twice
 - lives along side `+page.server.js`
 
 ---
+- THIS IS JUST AN EXAMPLE! DON'T PUT IT IN YOUR CODE
 
-	routes/+page.js
+	src/routes/+page.js
 ```
 import MyFancyButton from "$lib/MyFancyButton.svelte";
 
@@ -75,8 +91,6 @@ export function load({data}) {
 }
 ```
 
-- THIS IS JUST AN EXAMPLE! DON'T PUT IT IN YOUR CODE
-
 ---
 
 ## Displaying our loaded data
@@ -84,7 +98,7 @@ export function load({data}) {
 
 ---
 
-	routes/+page.svelte
+	🧑‍💻 src/routes/+page.svelte
 ```
 <script>
 	export let data;
@@ -100,25 +114,10 @@ export function load({data}) {
 - add the data object as an export in our +page.svelte file.
 - always has the same call signature - "export let data"
 - as seen in Svelte components, `export` is for data coming from outside the component.
--
 
 ---
 
-## Folder structure
-```bash
-routes
-├── about
-│   └── +page.svelte
-├── +page.server.js ✨
-└── +page.svelte
-```
-
-- load the data in +page.server.js
-- common layout around the pages
-
----
-
-## Adding a layout
+## Common layouts
 	+layout.svelte
 
 - good place to import global stylesheets
@@ -132,7 +131,19 @@ routes
 
 ---
 
-	routes/+layout.svelte
+## 🧑‍💻 Adding a layout
+```bash
+routes
+├── about
+│   └── +page.svelte
+├── +layout.svelte ✨
+├── +page.server.js
+└── +page.svelte
+```
+
+---
+
+	🧑‍💻 src/routes/+layout.svelte
 ```
 <script>
 	import '../app.css';
@@ -152,7 +163,7 @@ For now, just import global stylesheet,
 
 ---
 
-	routes/+layout.svelte
+	🧑‍💻 src/routes/+layout.svelte
 ```
 <script>
 	import '../app.css';
@@ -166,34 +177,24 @@ For now, just import global stylesheet,
 
 ---
 
-## Folder structure
-```bash
-routes
-├── about
-│   └── +page.svelte
-├── +layout.svelte ✨
-├── +page.server.js
-└── +page.svelte
-```
-
----
-
 ## Grouping
 - Add a folder with parenthesis around to not influence the route structure while organising you code
 - will also become useful if you want to "break" out of layouts
 
+
+
 ---
 
-## Folder structure
+### 🧑‍💻 Adding route groups
 ```bash
 routes
-├── (app)
-└── (marketing)
-    ├── about
-    │   └── +page.svelte <-- maps to `/about`
-    ├── +layout.svelte
-    ├── +page.server.js
-    └── +page.svelte <-- maps to `/`
+├── (app) ✨
+├── (marketing) ✨
+│   ├── about 
+│   │   └── +page.svelte 👈 '/about'
+│   ├── +page.server.js
+│   └── +page.svelte 👈 '/'
+└── +layout.svelte
 ```
 
 ---
@@ -202,7 +203,78 @@ routes
 
 ---
 
-	src/routes/(app)/+layout.server.js
+### How parent data works
+/assets/parent-data-1.svg
+size: contain
+- parent data always goes down the tree
+- in this example, root layout returns data then we have access to it in the root route
+- we don't actually need the server file, this is available in `page.svelte
+- layout data is available in child load function within `parent` attribute (more on that soon)
+- anything returned from layout is added to the `data` object on the page
+
+---
+### How parent data works
+/assets/parent-data-2.svg
+size: contain
+
+- parent data can be overwritten in the child
+- server loads can overwrite the data but only affects that route specifically (`foo` route)
+
+---
+### How parent data works
+/assets/parent-data-3.svg
+size: contain
+- layout load can overwrite data and it will affect all children
+
+---
+### How parent data works
+/assets/prent-data-4.svg
+size: contain
+- we showed extra steps but we don't necessarily need them, this data is available directly in all children
+
+---
+### How parent data works
+/assets/parent-data-5.svg
+size: contain
+- and even further descendants
+
+---
+### How parent data works
+/assets/parent-data-6.svg
+size: contain
+- but it can still be manipulated on the way
+---
+### How parent data works
+/assets/parent-data-3.svg
+size: contain
+- parent loading is useful as this allows us to load data once and have access to it in all children
+- caveat: only possible from `layout` files
+- `.server` files can only get parent data from a `+layout.server.js` file
+- universal load (`+page.js`) functions can access data from both `+layout.server.js` & `+layout.js`
+---
+
+### 🧑‍💻 Adding layout loading
+```bash
+routes
+├── (app)
+│   ├── library ✨
+│   │   └── songs ✨
+│   │       └── +page.svelte ✨
+│   └── +layout.server.js ✨
+├── (marketing)
+│   ├── about
+│   │   └── +page.svelte
+│   ├── +page.server.js
+│   └── +page.svelte
+└── +layout.svelte
+```
+
+---
+- "fetch" from the load function is a built-in wrapper around the standard fetch API so that it can be used with SSR
+- here we are mocking an API and returning all songs,
+- you can see from the route paths, we are in a descendant of the `+layout.server.js`
+
+	🧑‍💻 src/routes/(app)/+layout.server.js
 ```
 /** @type {import('./$types').LayoutServerLoad} */
 export async function load({ fetch }) {
@@ -211,7 +283,7 @@ export async function load({ fetch }) {
 	return { songs };
 }
 ```
-	src/routes/(app)/library/songs/+page.svelte
+	🧑‍💻 src/routes/(app)/library/songs/+page.svelte
 ```
 <script>
 	/** @type {import('./$types').PageData} */
@@ -225,18 +297,9 @@ export async function load({ fetch }) {
 </div>
 ```
 
-- this is useful as this allows us to load data once and have access to it in all children
-- only possible from a layout
-  // added information:
-- .server files can only get parent data from a `+layout.server.js` file
-- universal load (.js) functions can access data from both `+layout.server.js` & `+layout.js`
-
-- "fetch" from the load function is a built-in wrapper around the standard fetch API so that it can be used with SSR
-- here we are mocking an API and returning all songs,
-- you can see from the route paths, we are in a descendant of the `+layout.server.js`
-- this can also be nested to include all parent data
-
 ---
+
+- THIS IS AN EXAMPLE DON'T PUT IT IN YOUR CODE!
 
 	src/routes/(app)/+layout.server.js
 ```
@@ -250,37 +313,18 @@ export async function load({ fetch }) {
 	src/routes/(app)/library/songs/+page.server.js
 ```
 /** @type {import('./$types').PageServerLoad} */
-export async function load({ parent }) {
+export async function load({ fetch, parent }) {
 	// this will introduce a waterfall
 	let songs = await parent();
-	let response = await fetch('anotherfetch.json');
+	let response = await fetch(`anotherfetch/${songs.foo}.json`);
 	let another = await response.json();
-	return { songs, another };
+	return { another };
 }
 ```
 
-- by default svelte kit will load layout and page in parallel
-- if you await parent it will load them in series
+- by default SvelteKit will run layout and page loads in parallel
+- if you `await parent` it will load them in series
 - you should do this only if you really need the data from the parent to load other data
-- THIS IS AN EXAMPLE DON'T PUT IT IN YOUR CODE!
-
----
-
-## Folder structure
-```bash
-routes
-├── (app)
-│   ├── library ✨
-│   │   └── songs ✨
-│   │       └── +page.svelte ✨
-│   └── +layout.server.js ✨
-└── (marketing)
-    ├── about
-    │   └── +page.svelte
-    ├── +layout.svelte
-    ├── +page.server.js
-    └── +page.svelte
-```
 
 ---
 
@@ -288,7 +332,29 @@ routes
 
 ---
 
-	src/routes/(app)/library/albums/[album]/+page.server.js
+### 🧑‍💻 Adding dynamic routes
+```bash
+routes
+├── (app)
+│   ├── library
+│   │   ├── albums ✨
+│   │   │   └── [album] ✨
+│   │   │       ├── +page.server.js ✨
+│   │   │       └── +page.svelte ✨
+│   │   └── songs
+│   │       └── +page.svelte
+│   └── +layout.server.js
+├── (marketing)
+│   ├── about
+│   │   └── +page.svelte
+│   ├── +page.server.js
+│   └── +page.svelte
+└── +layout.svelte
+```
+
+---
+
+	🧑‍💻 src/routes/(app)/library/albums/[album]/+page.server.js
 ```
 /** @type {import('./$types').PageServerLoad} */
 export async function load({ params, fetch }) {
@@ -300,7 +366,7 @@ export async function load({ params, fetch }) {
 	return { album: albumData };
 }
 ```
-	src/routes/(app)/library/albums/[album]/+page.svelte
+	🧑‍💻 src/routes/(app)/library/albums/[album]/+page.svelte
 ```
 <script>
 	/** @type {import('./$types').PageData} */
@@ -324,7 +390,7 @@ export async function load({ params, fetch }) {
 
 ---
 
-	src/lib/global/primary-nav.svelte
+	🧑‍💻 src/lib/global/primary-nav.svelte
 ```
 <a href="/about">About</a>
 <a href="/library">Library</a>
@@ -340,7 +406,7 @@ Add the links to the PrimaryNav
 
 ---
 
-	src/routes/(app)/library/+page.server.js
+	🧑‍💻 src/routes/(app)/library/+page.server.js
 ```
 import { redirect } from '@sveltejs/kit';
 
@@ -358,42 +424,23 @@ Every time a user hits `/library` they will be redirected
 
 ---
 
-## Updating our route structure
-
----
-
-## Folder structure
+## Routing recap
 ```bash
+routes
 ├── (app)
-│   ├── +layout.server.js
-│   ├── +layout.svelte
-│   └── library
-│       ├── +page.server.js
-│       ├── albums
-│       │   ├── +page.server.js
-│       │   ├── +page.svelte
-│       │   └── [album]
-│       │       ├── +page.server.js
-│       │       └── +page.svelte
-│       ├── artists
-│       │   ├── +layout.server.js
-│       │   ├── +layout.svelte
-│       │   ├── +page.svelte
-│       │   ├── [artist]
-│       │   │   ├── +page.js
-│       │   │   └── +page.svelte
-│       │   └── artists-nav.svelte
-│       ├── library-nav-item.svelte
-│       ├── library-nav.svelte
-│       └── songs
-│           └── +page.svelte
+│   ├── library
+│   │   ├── albums
+│   │   │   └── [album]
+│   │   │       ├── +page.server.js
+│   │   │       └── +page.svelte
+│   │   └── songs
+│   │       └── +page.svelte
+│   └── +layout.server.js
 ├── (marketing)
-│   ├── +layout.svelte
-│   ├── +page.server.js
-│   ├── +page.svelte
 │   ├── about
 │   │   └── +page.svelte
-│   └── boxes.svelte
+│   ├── +page.server.js
+│   └── +page.svelte
 └── +layout.svelte
 ```
 
@@ -406,5 +453,4 @@ Every time a user hits `/library` they will be redirected
 - you can have environment secrets in the +page.server.js but not in the +page.js
 - square brackets denotes a dynamic parameter which is available in the +page.server.js and +page.js files
 - components can also live next to the route they are used on, or can live in `$lib/components` (or your own version)
-
-- // get stuck in and create this folder structure then play around with the URL to see that each page is working
+- behind the scenes we will add the `artists` route and some other minor components
