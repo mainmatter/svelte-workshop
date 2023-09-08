@@ -1,6 +1,5 @@
 # SvelteKit Basics
 
-
 ---
 ## Generate a new project
 ---
@@ -38,22 +37,6 @@ Next steps:
 - using JS over TS as this is an intro to SvelteKit rather than TS
 - we will still be using JSDoc for some autocompletion
 - The library project allows you to quickly build an npm package for svelte/sveltekit
-
----
-
-### Command cheatsheet
-	Run the development server
-	```bash
-	npm run dev
-	```
-	Run the Playwright tests
-	```bash
-	npm run test
-	```
-	Run the Vitest tests
-	```bash
-	npm run test:unit
-	```
 
 ---
 
@@ -103,14 +86,15 @@ Skipping "src" for now
 - where we store all of our Playwright tests
 - this will be expanding as we go through this workshop and begin to add more functionality.
 
+"vite.config.js" - where we define vote specific configuration like plugins and setup for Vitest
+
 back to "src" - the majority of our app code will go,
 - we can split it into components, stores, routes and any other folders or files we might find useful later on. The only required files are app.html and routes
 
-Going through the "src" folder:
 "app.d.ts" - define our types if we wanted,
-- just by the fact that our JS only app has a types file, you can tell that Svelte loves types.
+- just by the fact that our JS only app has a types file, you can tell that Svelte loves 
 ---
-### app.html
+	src/app.html
 ```html
 <!DOCTYPE html>
 <html lang="en">
@@ -166,11 +150,33 @@ Going through the "src" folder:
 "+page.svelte" file directly in the "routes" folder - this is the index page,
 - can access by navigating to the root URL of our dev server.
 ---
-## Displaying data
+- get stuck in and run the dev server
+- if you try to run the playwright server you may be prompted to complete the installation and setup
+- running `-- --ui` will open the Playwright UI, we have configured this to allow us to see our updates - do not use this in production!
+### Command cheatsheet
+	Run the development server
+	```bash
+	npm run dev
+	```
+	Run the Playwright tests
+	```bash
+	npm run test
+	```
+	Run the Playwright tests with the UI
+	```bash
+	npm run test -- --ui
+	```
+	Run the Vitest tests
+	```bash
+	npm run test:unit
+	```
+
+---
+## Our first route
 	+page.svelte
 
 ---
-	routes/+page.svelte
+	🧑‍💻 src/routes/+page.svelte
 ```
 <script>
 	const name = 'Billy Bloggs';
@@ -185,3 +191,23 @@ Going through the "src" folder:
 
 - add the `name` constant in our +page.svelte file. 
 - use curly braces to access it in the markup
+
+---
+- (repeated) if you try to run the playwright server you will be prompted to complete the installation and setup
+### Command cheatsheet
+	Run the development server
+	```bash
+	npm run dev
+	```
+	Run the Playwright tests
+	```bash
+	npm run test
+	```
+	Run the Playwright tests with the UI
+	```bash
+	npm run test -- --ui
+	```
+	Run the Vitest tests
+	```bash
+	npm run test:unit
+	```
