@@ -4,7 +4,7 @@ SvelteKit is just a machine that takes a Request and answer with a response
 ## Form actions
 
 ---
-	/routes/(app)/sign-in/+page.svelte
+	src/routes/(app)/sign-in/+page.svelte
 ```
 <script>
 	import { enhance } from '$app/forms';
@@ -37,7 +37,7 @@ originally/without JS this would reload the page, and rerun the `load` function 
 In a component you can get the content of the form with `$page.form` just like with `$page.data`
 
 ---
-	/routes/(app)/sign-in/+page.server.js
+	src/routes/(app)/sign-in/+page.server.js
 ```
 import { redirect, fail } from '@sveltejs/kit';
 
