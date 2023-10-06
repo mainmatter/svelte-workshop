@@ -249,7 +249,7 @@ size: contain
 size: contain
 - parent loading is useful as this allows us to load data once and have access to it in all children
 - caveat: only possible from `layout` files
-- `.server` files can only get parent data from a `+layout.server.js` file
+- `+page.server` files can only get parent data from a `+layout.server.js` file
 - universal load (`+page.js`) functions can access data from both `+layout.server.js` & `+layout.js`
 ---
 
