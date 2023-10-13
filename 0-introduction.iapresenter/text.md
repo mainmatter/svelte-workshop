@@ -57,7 +57,8 @@ filter: --fit-content
 
 ---
 
-/assets/Finished-app.png
+
+/assets/finished-app.png
 size: contain
 filter: --fit-content
 
