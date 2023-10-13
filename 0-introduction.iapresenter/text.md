@@ -42,13 +42,12 @@ filter: --fit-content
 
 ---
 
-	1. Introduction to Svelte
-	2. SvelteKit basics
-	3. Svelte components
-	4. Routing
-	5. Testing
-	6. Svelte stores
-	7. SvelteKit as a server
+	1. SvelteKit basics
+	2. Svelte components
+	3. Routing
+	4. Testing
+	5. Svelte stores
+	6. SvelteKit as a server
 
 
 ---
@@ -82,6 +81,11 @@ filter: --fit-content
 ## Let's get to it!
 ## 🧑‍💻
 - whenever you see this emoji, it denotes a coding exercise
+
+---
+## Prerequisites
+	Git
+	NPM
 
 ---
 # Introduction to Svelte
@@ -142,15 +146,12 @@ filter: --fit-content
 - Server-side rendering by default, 
 - code-splitting,
 - an opinionated project structure.
-- Sapper never reached version 1.0, in a video Rich explains 
-
-
-that the codebase had become too difficult to work with, but the team had learned a lot and so they took all of those learning with them, introducing...
+- Sapper never reached version 1.0: the codebase had become too difficult to work with, but the team had learned a lot and so they took all of those learning with them, introducing...
 ---
 
 ## SvelteKit
 	The new kid in town
 
-- 2020, rebranding Sapper as SvelteKit and giving it the final push towards its v1.0 release.
+- 2020, replacing Sapper with SvelteKit and giving it the final push towards its v1.0 release.
 
 - late 2022, SvelteKit 1.0 was released (already used before 1.0, was just a cut off for "no more breaking changes").
