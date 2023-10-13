@@ -2,18 +2,21 @@
 
 /assets/Mainmatter-team.png
 background: true
+filter: --bg-purple
 
 
 ---
 
 /assets/Mainmatter-logo.svg
 size: contain
+filter: --fit-content
 
 	https://mainmatter.com
 	@mainmatter
 
 /assets/Mainmatter-team.png
 background: true
+filter: --bg-purple
 
 
 ---
@@ -31,7 +34,7 @@ background: true
 
 /assets/Sveltekit-logo.png
 size: contain
-
+filter: --fit-content
 
 ---
 
@@ -56,6 +59,8 @@ size: contain
 ---
 
 /assets/Finished-app.png
+size: contain
+filter: --fit-content
 
 - building a music player app using SvelteKit and the Soundcloud API.
 - mix theoretical knowledge with hands on experience

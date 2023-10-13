@@ -1,7 +1,9 @@
 {
   "creatorIdentifier" : "net.ia.presenter",
   "net.ia.presenter" : {
-    "appearance" : "light"
+    "appearance" : "light",
+    "preset" : "Default",
+    "template" : "mainmatter"
   },
   "transient" : false,
   "type" : "net.daringfireball.markdown",
