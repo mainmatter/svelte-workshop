@@ -8,15 +8,12 @@ stores live outside of our components and can be accessed anywhere - don't need 
 
 they maintain their state in memory
 
-they're available in template through `$` - this sets up the subscription and removes it when the component is destroyed - don't need to worry about data leaks
+can also customise them or create your own as long as they follow the store interface - at least a `subscribe` function that returns an `unsubscribe`, optionally a `set` and `update`...for full compatibility with RxJS observables you can also have an object with the `unsubscribe` field
 
 3 built-in types:
 writable
 readable
 derived
-
-can also customise them or create your own as long as they follow the store interface - at least a `subscribe` function that returns an `unsubscribe`, optionally a `set` and `update`...for full compatibility with RxJS observables you can also have an object with the `unsubscribe` field
-
 
 ---
 ## Writable stores
@@ -43,7 +40,9 @@ unsubscribe(); // logs 'no more subscribers'
 
 set them with an initial value
 
-Optionally pass a StartStopNotifier
+Optionally pass a StartStopNotifier:
+code that is run on the first subscription
+return function that is called when the last subscriber unsubscribes
 
 `subscribe` to the value changes
 
@@ -110,8 +109,10 @@ $: console.log("loggin count reactively", $count);
 	$count++;
 }}>{$count}</button>
 ```
+
+they're available in template through `$` - this sets up the subscription and removes it when the component is destroyed - don't need to worry about data leaks
 ---
-## Adding stores to our project
+## 🧑‍💻 Adding stores to our project
 
 readable "time" store for `outline` component
 writable "nowPlaying" store for `nowPlaying` component
