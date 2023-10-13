@@ -227,25 +227,27 @@ size: contain
 - same as normal slot, fallback is provided by anything inside the <slot> tags
 
 ---
+- data can be passed down to the child (greeting)
 - data can be exposed by a child component to be used within its block
 ### Passing data between components
+	Child.svelte
+```
+<script>
+	export let greeting;
+	let result = 'Hi mum'
+</script>
+
+<slot {result}/>
+```
 	Parent.svelte
 ```
 <script>
 	import Child from 'child.svelte'
 </script>
 
-<Child let:result>
+<Child greeting="Hi Bobby" let:result>
 	{result}
 </Child>
-```
-	Child.svelte
-```
-<script>
-	let result = 'Hi mum'
-</script>
-
-<slot {result}/>
 ```
 - `result` is a shorthand that means `result={result}`
 ---
