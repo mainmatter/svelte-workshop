@@ -48,12 +48,11 @@ routes
 ```
 
 - load the data in +page.server.js
-- Next: common layout around the pages
 
 ---
 	🧑‍💻 src/routes/+page.server.js
 ```
-export function load() {
+export async function load() {
 	return {
 		name: 'Billy Bloggs'
 	};
@@ -83,7 +82,7 @@ export function load() {
 ```
 import MyFancyButton from "$lib/MyFancyButton.svelte";
 
-export function load({data}) {
+export async function load({data}) {
 	return {
 	...data,
 	component: MyFancyButton,
@@ -149,6 +148,7 @@ routes
 	import '../app.css';
 </script>
 
+<slot />
 ```
 
 This is just a svelte component
@@ -156,31 +156,34 @@ For now, just import global stylesheet,
 
 - create +layout.svelte within "routes", giving it a script tag and importing our global styles here.
 
-- // wait for them to do it and see the app is broken
-
-- app is now displaying nothing,
-- // see if anyone can tell us why it's broken
+- <slot/> element allows svelte to know that this is where we want all child elements to be rendered.
 
 ---
 
-	🧑‍💻 src/routes/+layout.svelte
+## Page options
+	+page.js or +layout.js
+	+page.server.js or +layout.server.js
 ```
-<script>
-	import '../app.css';
-</script>
+export const ssr = true || false;
+export const csr = true || false;
 
-<slot />
+export const prerender = true || false;
+export function entries() {
+	return [
+		{ slug: 'hello-world' },
+		{ slug: 'another-blog-post' }
+	];
+}
 ```
-
-- <slot/> element allows svelte to know that this is where we want all child elements to be rendered.
-- Now the app should work as expected
-
+- SSR means this page/folder should/not be server side rendered
+- CSR disables/enables page hydration
+- prerender - whether the page is pre-rendered at build time
+- entries goes with prerender if you need to supply specific routes to pre-render (for dynamic routes)
 ---
 
 ## Grouping
 - Add a folder with parenthesis around to not influence the route structure while organising you code
 - will also become useful if you want to "break" out of layouts
-
 
 
 ---
@@ -451,6 +454,6 @@ routes
 - +page.server.js only runs in the server,
 - +page.js runs both in the server and on the client,
 - you can have environment secrets in the +page.server.js but not in the +page.js
-- square brackets denotes a dynamic parameter which is available in the +page.server.js and +page.js files
+- square brackets denotes a dynamic parameter which is available in the +page.server.js and +page.js params attribute
 - components can also live next to the route they are used on, or can live in `$lib/components` (or your own version)
 - behind the scenes we will add the `artists` route and some other minor components
