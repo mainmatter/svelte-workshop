@@ -20,6 +20,10 @@ Unit testing:
 ### Playwright
 /assets/Clipboard_2.png
 size: contain
+
+```
+npx playwright codegen localhost:5173
+```
 Playwright - acceptance testing
 
 Acceptance testing:
@@ -27,7 +31,7 @@ Acceptance testing:
 - run codegen `npx playwright codegen localhost:5173` 
 
 ---
-## Adding tests to our app
+## 🧑‍💻 Adding tests to our app
 
 PRESENTER HELP:
 Playwright
@@ -35,6 +39,6 @@ Playwright
 - mention `page().toHaveUrl()`
 Vitest:
 Testing the song table
-- add `data-testid` to `th` and `tr` to help select elements
+- add `data-testid` to play button to help select elements
 - go through first example then get them to do second test on their own
 
