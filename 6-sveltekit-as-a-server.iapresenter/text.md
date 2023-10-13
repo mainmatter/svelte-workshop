@@ -1,10 +1,10 @@
 # SvelteKit as a server
-SvelteKit is just a machine that takes a Request and answer with a response
+SvelteKit is just a machine that takes a Request and answers with a response
 ---
 ## Form actions
 
 ---
-	src/routes/(app)/sign-in/+page.svelte
+	🧑‍💻 src/routes/(app)/sign-in/+page.svelte
 ```
 <script>
 	import { enhance } from '$app/forms';
@@ -37,7 +37,7 @@ originally/without JS this would reload the page, and rerun the `load` function 
 In a component you can get the content of the form with `$page.form` just like with `$page.data`
 
 ---
-	src/routes/(app)/sign-in/+page.server.js
+	🧑‍💻 src/routes/(app)/sign-in/+page.server.js
 ```
 import { redirect, fail } from '@sveltejs/kit';
 
@@ -70,7 +70,7 @@ anything returned from the action will populate the `page.form` property
 ## Hooks
 
 ---
-	src/hooks.server.js
+	🧑‍💻 src/hooks.server.js
 ```
 import { redirect } from "@sveltejs/kit";
 export async function handle({ event, resolve }) {
@@ -80,9 +80,9 @@ export async function handle({ event, resolve }) {
 	}
 	// good place to check auth
 	if(event.route.id.startsWith("/library") && ! user){
-		throw redirect(301, "/library");
+		throw redirect(301, "/sign-in");
 	}
-	//you ca return whatever Response object you want
+	//you can return whatever Response object you want
 	const response = await resolve(event);
 	return response;
 }
@@ -103,6 +103,6 @@ here we are setting the `user` if there is one
 
 ---
 
-## Adding form actions to our project
+## 🧑‍💻 Adding form actions to our project
 
 `$lib/server` is a reserved folder that acts as an API layer and every file with the extension of `.server.js`, you cannot import them inside anything that will be shipped to the client. It can only be accessed from `server` files. It contains the code that is only executed on the server so you can safely access secrets there
