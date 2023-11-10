@@ -1,0 +1,30 @@
+{
+	"name": "Mainmatter SvelteKit Workshop: Workshop Slides",
+	"version": "0.0.0",
+	"description": "Learn Svelte and SvelteKit",
+	"homepage": "https://mainmatter.com/services/workshops/svelte-and-sveltekit/",
+	"license": "MIT",
+	"scripts": {
+		"test": "",
+		"dev": "vite",
+		"build": "vite build",
+		"serve": "vite preview",
+		"lint:prettier": "prettier --check .",
+		"lint:prettier:fix": "prettier --write ."
+	},
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/mainmatter/svelte-workshop.git"
+	},
+	"engines": {
+		"node": ">=18.0.0"
+	},
+	"keywords": [],
+	"devDependencies": {
+		"prettier": "^3.0.3",
+		"prettier-plugin-svelte": "^3.0.3",
+		"reveal.js": "^5.0.2",
+		"vite": "^4.5.0"
+	},
+	"browserslist": "> 2%, not dead"
+}

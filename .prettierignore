@@ -1,0 +1,12 @@
+/dist
+/css
+/js
+/plugin
+/assets
+/node_modules
+
+# Ignore files for PNPM, NPM and YARN
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+.DS_Store
