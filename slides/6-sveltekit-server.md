@@ -1,11 +1,16 @@
 # SvelteKit as a server
+
 SvelteKit is just a machine that takes a Request and answers with a response
+
 ---
+
 ## Form actions
 
 ---
-	🧑‍💻 src/routes/(app)/sign-in/+page.svelte
-```
+
+🧑‍💻 `src/routes/(app)/sign-in/+page.svelte`
+
+```svelte
 <script>
 	import { enhance } from '$app/forms';
 	export let form;
@@ -13,22 +18,19 @@ SvelteKit is just a machine that takes a Request and answers with a response
 
 <!-- this is an actual HTML form -->
 <form method="POST" use:enhance>
-	<label>
-		Username
-		<input type="text" name="username" />
-	</label>
-	<label>
-		Password
-		<input type="password" name="password" />
-	</label>
+	<label>Username <input type="text" name="username" /></label>
+	<label>Password <input type="password" name="password" /></label>
 	<button type="submit">Submit</button>
 </form>
+
 {#if form?.detail}
 	<div>
 		{form.detail}
 	</div>
 {/if}
 ```
+
+Note:
 
 originally/without JS this would reload the page, and rerun the `load` function in the `server.js` file
 
@@ -37,8 +39,10 @@ originally/without JS this would reload the page, and rerun the `load` function 
 In a component you can get the content of the form with `$page.form` just like with `$page.data`
 
 ---
-	🧑‍💻 src/routes/(app)/sign-in/+page.server.js
-```
+
+🧑‍💻 `src/routes/(app)/sign-in/+page.server.js`
+
+```svelte
 import { redirect, fail } from '@sveltejs/kit';
 
 /** @type {import('./$types').Actions} */
@@ -55,11 +59,14 @@ export const actions = {
 	}
 };
 ```
-this function receives the special sveltekit request event (native request + sveltekit additions) - more info in the docs
 
-we can do server side logic here without having to go to our API
+Note:
 
-sveltekit provides us with useful helper functions for common responses like redirect, fail, error and json - available for any point in which sveltekit can return a server response
+This function receives the special sveltekit request event (native request + sveltekit additions) - more info in the docs
+
+We can do server side logic here without having to go to our API
+
+SvelteKit provides us with useful helper functions for common responses like redirect, fail, error and json - available for any point in which sveltekit can return a server response
 
 anything returned from the action will populate the `page.form` property
 
@@ -67,12 +74,16 @@ anything returned from the action will populate the `page.form` property
 - // you can have named form actions by exporting named actions instead of using the `default` action
 
 ---
+
 ## Hooks
 
 ---
-	🧑‍💻 src/hooks.server.js
-```
+
+🧑‍💻 `src/hooks.server.js`
+
+```svelte
 import { redirect } from "@sveltejs/kit";
+
 export async function handle({ event, resolve }) {
 	const user = event.cookies.get('user');
 	if (user) {
@@ -87,6 +98,8 @@ export async function handle({ event, resolve }) {
 	return response;
 }
 ```
+
+Note:
 
 hooks runs on every request - a lot like a middleware (express) that can mutate the object that is passed to it
 
@@ -105,4 +118,8 @@ here we are setting the `user` if there is one
 
 ## 🧑‍💻 Adding form actions to our project
 
-`$lib/server` is a reserved folder that acts as an API layer and every file with the extension of `.server.js`, you cannot import them inside anything that will be shipped to the client. It can only be accessed from `server` files. It contains the code that is only executed on the server so you can safely access secrets there
+`$lib/server` is a reserved folder that acts as an API layer and any file with the extension of `.server.js`.
+
+Note:
+
+You cannot import them inside anything that will be shipped to the client. It can only be accessed from `server` files. It contains the code that is only executed on the server so you can safely access secrets there
