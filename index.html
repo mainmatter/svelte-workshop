@@ -7,56 +7,15 @@
 			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
 		/>
 
-		<title>Getting started with SvelteKit</title>
+		<title><%- title %></title>
+		<style>
+			body:not(.reveal-viewport) .reveal { display: none ; }
+		</style>
 	</head>
 	<body>
 		<div class="reveal">
-			<div class="slides">
-				<section
-					data-markdown="/0-introduction.md"
-					data-separator="^\n___\n$"
-					data-separator-vertical="^\n---\n$"
-					data-separator-notes="^Note:"
-				></section>
-				<section
-					data-markdown="/1-basics.md"
-					data-separator="^\n___\n$"
-					data-separator-vertical="^\n---\n$"
-					data-separator-notes="^Note:"
-				></section>
-				<section
-					data-markdown="/2-svelte-components.md"
-					data-separator="^\n___\n$"
-					data-separator-vertical="^\n---\n$"
-					data-separator-notes="^Note:"
-				></section>
-				<section
-					data-markdown="/3-sveltekit-routing.md"
-					data-separator="^\n___\n$"
-					data-separator-vertical="^\n---\n$"
-					data-separator-notes="^Note:"
-				></section>
-				<section
-					data-markdown="/4-testing.md"
-					data-separator="^\n___\n$"
-					data-separator-vertical="^\n---\n$"
-					data-separator-notes="^Note:"
-				></section>
-				<section
-					data-markdown="/5-svelte-stores.md"
-					data-separator="^\n___\n$"
-					data-separator-vertical="^\n---\n$"
-					data-separator-notes="^Note:"
-				></section>
-				<section
-					data-markdown="/6-sveltekit-server.md"
-					data-separator="^\n___\n$"
-					data-separator-vertical="^\n---\n$"
-					data-separator-notes="^Note:"
-				></section>
-			</div>
+			<div class="slides"></div>
 		</div>
-
 		<script type="module" src="./src/main.js"></script>
 	</body>
 </html>
